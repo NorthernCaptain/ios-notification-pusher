@@ -1,7 +1,7 @@
 {
-  "name": "electron-react-webpack-boilerplate",
+  "name": "ios-notification-pusher",
   "version": "1.18.0",
-  "description": "Minimal Electron, React, PostCSS and Webpack boilerplate to help you get started with building your next app.",
+  "description": "Dvelopment tool: Electron + React app to send remote push notifications to iOS apps",
   "license": "MIT",
   "private": false,
   "repository": {
@@ -46,6 +46,11 @@
     "postpackage": "electron-packager ./ --out=./builds"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@fontsource/roboto": "^4.5.5",
+    "@mui/icons-material": "^5.6.2",
+    "@mui/material": "^5.6.2",
     "postcss": "^8.4.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -69,7 +74,7 @@
     "postcss-preset-env": "^7.4.2",
     "postcss-pxtorem": "^6.0.0",
     "style-loader": "^3.3.1",
-    "webpack": "^5.70.0",
+    "webpack": "^5.72.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^3.11.3"
   }

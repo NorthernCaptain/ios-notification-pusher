@@ -1,3 +1,10 @@
 /* Main CSS file */
 
-@import '_example/_example.css';
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('~@fontsource/roboto/files/roboto-cyrillic-ext-400-normal.woff2') format('woff2'), url('~@fontsource/roboto/files/roboto-all-400-normal.woff') format('woff');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
