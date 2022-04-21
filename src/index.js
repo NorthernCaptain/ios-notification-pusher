@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 
+import CssBaseline from '@mui/material/CssBaseline';
 import App from './components/App'
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import theme from './theme';
@@ -16,6 +17,7 @@ document.body.appendChild(root)
 render(
   <StyledEngineProvider injectFirst>
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <App />
     </ThemeProvider>
   </StyledEngineProvider>,

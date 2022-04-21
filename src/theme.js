@@ -17,6 +17,10 @@ const theme = createTheme({
             main: '#8884d8',
             contrastText: '#fff',
         },
+        paper2: {
+            main: '#fcfcfa',
+            contrastText: '#333333',
+        },
     },
     error: {
         main: red.A400,
