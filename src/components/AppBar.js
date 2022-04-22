@@ -10,8 +10,7 @@ import SendIcon from '@mui/icons-material/Send';
 
 export default function AppTopBar({onSend}) {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar>
           <IconButton
             size="large"
@@ -30,6 +29,5 @@ export default function AppTopBar({onSend}) {
           </Button>
         </Toolbar>
       </AppBar>
-    </Box>
   );
 }

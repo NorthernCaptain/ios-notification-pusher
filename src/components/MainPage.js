@@ -5,16 +5,13 @@ import { styled } from '@mui/material/styles';
 import {Box} from "@mui/material";
 import AppBar from "./AppBar";
 import EventSettings from "./ios/EventSettings";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+import MainEventHeader from "./MainEventHeader";
+import {useState} from "react";
+import AEventSettings from "./android/AEventSettings";
 
 export default function MainPage(props) {
+  const [osType, setOsType] = useState('ios');
+
   function onSend() {
     console.log("SEND!")
   }
@@ -24,8 +21,9 @@ export default function MainPage(props) {
       <AppBar onSend={onSend}/>
       <Box m={2}>
         <Stack spacing={2}>
-          <Item>Notification 1 (placeholder)</Item>
-          <EventSettings/>
+          <MainEventHeader osType={osType} setOsType={setOsType}/>
+          {osType === 'ios' && <EventSettings/>}
+          {osType === 'android' && <AEventSettings/>}
         </Stack>
       </Box>
     </Box>
