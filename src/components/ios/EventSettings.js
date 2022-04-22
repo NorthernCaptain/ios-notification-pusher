@@ -9,6 +9,7 @@ import {styled} from "@mui/material/styles";
 import EventEnvironment from "./EventEnvironment";
 import EventHeader from "./EventHeader";
 import {useState} from "react";
+import Authentication from "./Authentication";
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -16,9 +17,15 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   backgroundColor: theme.palette.paper2.main,
 }));
 
+const HeaderTypography = styled(Typography)(({ theme }) => ({
+  fontWeight: theme.typography.fontWeightBold,
+  textTransform: 'uppercase',
+}));
 
 export default function EventSettings() {
   const [header, setHeader] = useState(null);
+  const [auth, setAuth] = useState(null);
+  const [env, setEnv] = useState({production: false});
 
   return (
     <Box>
@@ -28,7 +35,7 @@ export default function EventSettings() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>HEADER</Typography>
+          <HeaderTypography>Header</HeaderTypography>
         </AccordionSummary>
         <AccordionDetails>
           <EventHeader header={header} onHeaderChange={hdr => {setHeader(hdr); console.log("Set HEADER", hdr)}}/>
@@ -40,7 +47,7 @@ export default function EventSettings() {
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography>BODY</Typography>
+          <HeaderTypography>Body</HeaderTypography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -55,8 +62,11 @@ export default function EventSettings() {
           aria-controls="panel3a-content"
           id="panel3a-header"
         >
-          <Typography>AUTHENTICATION</Typography>
+          <HeaderTypography>Authentication</HeaderTypography>
         </AccordionSummary>
+        <AccordionDetails>
+          <Authentication auth={auth} onAuthChange={a => setAuth(a)}/>
+        </AccordionDetails>
       </Accordion>
       <Accordion>
         <AccordionSummary
@@ -64,10 +74,10 @@ export default function EventSettings() {
           aria-controls="panel3a-content"
           id="panel3a-header"
         >
-          <Typography>ENVIRONMENT</Typography>
+          <HeaderTypography>Environment</HeaderTypography>
         </AccordionSummary>
         <AccordionDetails>
-          <EventEnvironment />
+          <EventEnvironment env={env} setEnv={setEnv}/>
         </AccordionDetails>
       </Accordion>
     </Box>

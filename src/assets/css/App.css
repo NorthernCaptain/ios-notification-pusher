@@ -1,10 +1,18 @@
 /* Main CSS file */
 
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: url('~@fontsource/roboto/files/roboto-cyrillic-ext-400-normal.woff2') format('woff2'), url('~@fontsource/roboto/files/roboto-all-400-normal.woff') format('woff');
-  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+.drop-zone {
+  border: 2px dashed #039be5;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.drop-zone span {
+  font-weight: bold;
+  color: #0a9500;
+}
+
+.drop-zone p:last-of-type {
+  color: #039be5
 }

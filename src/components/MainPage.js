@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import {Box} from "@mui/material";
 import AppBar from "./AppBar";
-import EventSettings from "./EventSettings";
+import EventSettings from "./ios/EventSettings";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -24,9 +24,8 @@ export default function MainPage(props) {
       <AppBar onSend={onSend}/>
       <Box m={2}>
         <Stack spacing={2}>
-          <Item>Item 1</Item>
+          <Item>Notification 1 (placeholder)</Item>
           <EventSettings/>
-          <Item>Item 3</Item>
         </Stack>
       </Box>
     </Box>

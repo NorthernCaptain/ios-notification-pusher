@@ -4,16 +4,16 @@ import MenuItem from '@mui/material/MenuItem';
 import {useEffect, useState} from "react";
 import Stack from "@mui/material/Stack";
 import {DateTimePicker} from "@mui/x-date-pickers";
-import {shallowEqual} from "../utils";
+import {shallowEqual} from "../../utils";
 
 const pushTypes = [
   {
     value: 'alert',
-    label: 'Alert',
+    label: 'alert',
   },
   {
     value: 'background',
-    label: 'Background',
+    label: 'background',
   },
 ]
 
@@ -47,10 +47,10 @@ export default function EventHeader({header, onHeaderChange}) {
   }
 
   useEffect(() => {
-    let header = constructHeader();
-    if(shallowEqual(header, event?.header)) return;
-    console.log('header', header);
-    if(onHeaderChange) onHeaderChange(header);
+    let hdr = constructHeader();
+    if(shallowEqual(hdr, header)) return;
+    console.log('header', hdr);
+    if(onHeaderChange) onHeaderChange(hdr);
   }, [collapseId, notificationId, pushType, priority, expiryDate]);
 
   return (
@@ -70,6 +70,7 @@ export default function EventHeader({header, onHeaderChange}) {
           </MenuItem>
         ))}
       </TextField>
+
       <TextField
         id="collapse-id"
         label="Collapse id"
@@ -78,6 +79,7 @@ export default function EventHeader({header, onHeaderChange}) {
         helperText="Identifier to collapse multiple notifications into one"
         variant="outlined"
       />
+
       <TextField
         id="priority"
         select
@@ -93,6 +95,7 @@ export default function EventHeader({header, onHeaderChange}) {
           </MenuItem>
         ))}
       </TextField>
+
       <TextField
         id="notification-id"
         label="Notification id"
@@ -101,6 +104,7 @@ export default function EventHeader({header, onHeaderChange}) {
         helperText="Unique identifier (UUID) of the notification, auto-generated if empty"
         variant="outlined"
       />
+
       <DateTimePicker
         label="Expiration"
         value={expiryDate}
