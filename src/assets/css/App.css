@@ -21,3 +21,15 @@
 .drop-zone p:last-of-type {
   color: #52afee
 }
+
+.json-editor textarea {
+  outline: rgba(255, 255, 255, 0.29) auto 1px;
+}
+
+.json-editor textarea:hover {
+  outline: rgba(255, 255, 255, 0.79) auto 1px;
+}
+
+.json-editor textarea:focus-visible {
+  outline: #52afee auto 1px;
+}

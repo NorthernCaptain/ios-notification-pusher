@@ -6,6 +6,7 @@ import EventHeader from "./EventHeader";
 import {useState} from "react";
 import Authentication from "./Authentication";
 import AccordionSection from "../AccordionSection";
+import EventBody from "./EventBody";
 
 
 export default function EventSettings() {
@@ -19,10 +20,7 @@ export default function EventSettings() {
         <EventHeader header={header} onHeaderChange={hdr => {setHeader(hdr); console.log("Set HEADER", hdr)}}/>
       </AccordionSection>
       <AccordionSection title="Body" expanded={true}>
-        <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
-        </Typography>
+        <EventBody/>
       </AccordionSection>
       <AccordionSection title="Authentication" expanded={true}>
         <Authentication auth={auth} onAuthChange={a => setAuth(a)}/>

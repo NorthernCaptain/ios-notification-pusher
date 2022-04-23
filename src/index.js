@@ -5,7 +5,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import App from './App'
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import theme from './theme';
-import './assets/css/fonts.css'
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 // Since we are using HtmlWebpackPlugin WITHOUT a template, we should create our own root node in the body element before rendering into it
 let root = document.createElement('div')
