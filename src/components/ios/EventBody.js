@@ -1,32 +1,59 @@
 import * as React from 'react';
 import Stack from "@mui/material/Stack";
 import JsonEditor from "../JsonEditor";
+import BaseTextField from "../BaseTextField";
+import {useEffect, useState} from "react";
+import {shallowEqual} from "../../utils";
 
 export default function EventBody({body, setBody}) {
-  const [code, setCode] = React.useState(
+  const [bundleId, setBundleId] = useState(body.bundleId || '');
+  const [devices, setDevices] = useState((body.devices || []).join('\n'));
+  const [code, setCode] = useState( body.code ||
     `{
-  "setup": {
-    "utc_start_time": [
-      2022,
-      4,
-      17,
-      17,
-      59,
-      14,
-      0
-    ],
-    "phones": {
-      "8844B37A-A285-4984-8DB0-1BEAEDCA9816": {
-        "id": "8844B37A-A285-4984-8DB0-1BEAEDCA9816"
-      }
+  "aps": {
+    "alert": {
+      "title": "Message title",
+      "subtitle": "Short message subtitle",
+      "body": "This is the body text of your message"
     }
+    "mutable-content": 0
   }
 }
-`
-  );
+`);
+
+  useEffect(() => {
+    if(body.bundleId !== bundleId ||
+      body.code !== code ||
+      !shallowEqual(body.devices, devices)) {
+      console.log(`DEVICES [${devices}]`);
+      setBody({
+        bundleId,
+        devices: devices.split('\n').filter(d => d.trim().length > 0).map(d => d.trim()),
+        code
+      });
+    }
+  }, [bundleId, devices, code]);
+
 
   return (
     <Stack spacing={3}>
+      <BaseTextField
+        id="bundle-id"
+        label="Bundle id"
+        value={bundleId}
+        onChange={(e) => setBundleId(e.target.value)}
+        helperText="The topic for the notification, usually the bundle id of the app"
+      />
+      <BaseTextField
+        id="devices-id"
+        label="Device token"
+        multiline
+        minRows={2}
+        maxRows={5}
+        value={devices}
+        onChange={e=>setDevices(e.target.value)}
+        helperText="The device token of the device to send the notification to. Put every token on a new line."
+      />
       <JsonEditor code={code} setCode={setCode}/>
     </Stack>
   );

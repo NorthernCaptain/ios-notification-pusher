@@ -10,6 +10,7 @@ import TextField from "@mui/material/TextField";
 import KeyIcon from '@mui/icons-material/Key';
 import BadgeIcon from '@mui/icons-material/Badge';
 import DropZone from "../DropZone";
+import BaseTextField from "../BaseTextField";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,14 +44,13 @@ function CertificateAuth({passphrase, setPassphrase, certFile, setCertFile}) {
     <Stack spacing={3}>
       <DropZone text="Drag 'n' drop a .p12 certificate here, or click to select it"
         onChoose={files => setCertFile(files[0])} file={certFile} extensions={[".p12", ".key"]} accept="application/x-pkcs12"/>
-      <TextField
+      <BaseTextField
         id="passphrase-id"
         label="Passphrase"
         type="password"
         value={passphrase}
         onChange={(e) => setPassphrase(e.target.value)}
         helperText="Passphrase to unlock the certificate"
-        variant="outlined"
       />
     </Stack>
   )
@@ -61,21 +61,19 @@ function KeyAuth({keyId, setKeyId, teamId, setTeamId, keyFile, setKeyFile}) {
     <Stack spacing={3}>
       <DropZone text="Drag 'n' drop a .p8 key file here, or click to select it"
                 onChoose={files => setKeyFile(files[0])} file={keyFile} extensions={[".p8"]} accept="application/pkcs8"/>
-      <TextField
+      <BaseTextField
         id="team-id"
         label="Team id"
         value={teamId}
         onChange={(e) => setTeamId(e.target.value)}
         helperText="The Team id of your Apple Developer account"
-        variant="outlined"
       />
-      <TextField
+      <BaseTextField
         id="key-id"
         label="Key id"
         value={keyId}
         onChange={(e) => setKeyId(e.target.value)}
         helperText="The key id of the p8 file, check Apple dev console - certificates - keys"
-        variant="outlined"
       />
     </Stack>
   )
