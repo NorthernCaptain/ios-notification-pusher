@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 
 import CssBaseline from '@mui/material/CssBaseline';
-import App from './components/App'
+import App from './App'
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import theme from './theme';
 import './assets/css/fonts.css'

@@ -42,7 +42,7 @@ function CertificateAuth({passphrase, setPassphrase, certFile, setCertFile}) {
   return (
     <Stack spacing={3}>
       <DropZone text="Drag 'n' drop a .p12 certificate here, or click to select it"
-        onChoose={files => setCertFile(files[0])} file={certFile}/>
+        onChoose={files => setCertFile(files[0])} file={certFile} extensions={[".p12", ".key"]} accept="application/x-pkcs12"/>
       <TextField
         id="passphrase-id"
         label="Passphrase"
@@ -60,7 +60,7 @@ function KeyAuth({keyId, setKeyId, teamId, setTeamId, keyFile, setKeyFile}) {
   return (
     <Stack spacing={3}>
       <DropZone text="Drag 'n' drop a .p8 key file here, or click to select it"
-                onChoose={files => setKeyFile(files[0])} file={keyFile}/>
+                onChoose={files => setKeyFile(files[0])} file={keyFile} extensions={[".p8"]} accept="application/pkcs8"/>
       <TextField
         id="team-id"
         label="Team id"

@@ -4,22 +4,15 @@ import { createTheme } from '@mui/material/styles';
 // A custom theme for this app
 const theme = createTheme({
     palette: {
-        mode: "light",
+        mode: "dark",
         primary: {
             main: '#039be5',
+            contrastText: '#ffffff',
         },
         secondary: orange,
-        cc1: {
-            main: '#82ca9d',
-            contrastText: '#fff',
-        },
-        cc2: {
-            main: '#8884d8',
-            contrastText: '#fff',
-        },
         paper2: {
-            main: '#fcfcfa',
-            contrastText: '#333333',
+            main: '#333333',
+            contrastText: '#fcfcfa',
         },
     },
     error: {
@@ -28,7 +21,7 @@ const theme = createTheme({
     components: {
         MuiAppBar: {
             defaultProps: {
-                enableColorOnDark: true,
+                enableColorOnDark: false,
             },
         },
     }

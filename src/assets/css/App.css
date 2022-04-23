@@ -1,7 +1,7 @@
 /* Main CSS file */
 
 .drop-zone {
-  border: 2px dashed #039be5;
+  border: 2px dashed #52afee;
   padding: 20px;
   border-radius: 16px;
   text-align: center;
@@ -10,9 +10,14 @@
 
 .drop-zone span {
   font-weight: bold;
-  color: #0a9500;
+  color: #0cda02;
+}
+
+.drop-zone .error {
+  color: #fd4d4d;
+  font-weight: bold;
 }
 
 .drop-zone p:last-of-type {
-  color: #039be5
+  color: #52afee
 }
