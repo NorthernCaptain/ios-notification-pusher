@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import {shallowEqual} from "../../utils";
 
 export default function EventBody({body, setBody}) {
+  body = body || {};
   const [bundleId, setBundleId] = useState(body.bundleId || '');
   const [devices, setDevices] = useState((body.devices || []).join('\n'));
   const [code, setCode] = useState( body.code ||

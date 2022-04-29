@@ -115,7 +115,7 @@ export default function Authentication({auth, onAuthChange}) {
       </Box>
       <TabPanel value={index} index={0}>
         <CertificateAuth passphrase={passphrase} setPassphrase={setPassphrase}
-                         certFile={certFile} setCertFile={f => {console.log("Selected cert file", f); setCertFile(f)}}/>
+                         certFile={certFile} setCertFile={f => {console.log("Selected cert file", f); setCertFile({name: f.name, path: f.path})}}/>
       </TabPanel>
       <TabPanel value={index} index={1}>
         <KeyAuth keyId={keyId} setKeyId={setKeyId} teamId={teamId} setTeamId={setTeamId} keyFile={keyFile} setKeyFile={setKeyFile}/>
