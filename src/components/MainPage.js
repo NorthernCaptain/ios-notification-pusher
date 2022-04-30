@@ -4,7 +4,6 @@ import {Box} from "@mui/material";
 import AppBar from "./AppBar";
 import IOSEventSettings from "./ios/EventSettings";
 import MainEventHeader from "./MainEventHeader";
-import {useState} from "react";
 import AndroidEventSettings from "./android/EventSettings";
 import localforage from "localforage";
 import { v4 as uuidv4 } from 'uuid';

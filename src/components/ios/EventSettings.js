@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Typography from '@mui/material/Typography';
 import {Box} from "@mui/material";
 import EventEnvironment from "./EventEnvironment";
 import EventHeader from "./EventHeader";
@@ -9,6 +8,7 @@ import AccordionSection from "../AccordionSection";
 import EventBody from "./EventBody";
 import {useForage} from "../../utils";
 import _ from "lodash";
+import {eventAuth, eventBody, eventEnv, eventHeader} from "./defaults";
 
 
 export default function EventSettings({event}) {
@@ -18,24 +18,10 @@ export default function EventSettings({event}) {
   const [body, setBody] = useState(null);
 
   const [fullEvent, setFullEvent, eventLoading] = useForage(event.id, {
-    header: { pushType: 'alert', priority: '10', collapseId: '', id: '', expiry: null },
-    auth: { type: 0, passphrase: '', keyId: '', teamId: '' },
-    env: {production: false},
-    body: {
-      code:  `{
-  "aps": {
-    "alert": {
-      "title": "Message title",
-      "subtitle": "Short message subtitle",
-      "body": "This is the body text of your message"
-    }
-    "mutable-content": 0
-  }
-}
-`,
-      bundle: '',
-      devices: [],
-    },
+    header: eventHeader,
+    auth: eventAuth,
+    env: eventEnv,
+    body: eventBody
   }, 2000);
 
   useEffect(() => {

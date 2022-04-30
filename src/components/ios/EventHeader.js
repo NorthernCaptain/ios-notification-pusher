@@ -4,6 +4,7 @@ import Stack from "@mui/material/Stack";
 import {DateTimePicker} from "@mui/x-date-pickers";
 import BaseTextField from "../BaseTextField";
 import moment from "moment";
+import {eventHeader} from "./defaults";
 
 const pushTypes = [
   {
@@ -16,7 +17,7 @@ const pushTypes = [
   },
 ]
 
-const priotities = [
+const priorities = [
   {
     value: '10',
     label: 'immediately',
@@ -28,7 +29,7 @@ const priotities = [
 ]
 
 export default function EventHeader({header, onHeaderChange}) {
-  header = header || { pushType: 'alert', priority: '10', collapseId: '', id: '', expiry: null };
+  header = header || eventHeader;
 
   function commitHeader(key, value) {
     let newHeader = {...header};
@@ -69,7 +70,7 @@ export default function EventHeader({header, onHeaderChange}) {
         onChange={(e) => commitHeader("priority", e.target.value)}
         helperText="Immediately or normal to save battery"
       >
-        {priotities.map((option) => (
+        {priorities.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
           </MenuItem>
@@ -88,7 +89,8 @@ export default function EventHeader({header, onHeaderChange}) {
         label="Expiration"
         value={header.expiryDate ? moment(header.expiryDate) : null}
         onChange={(e) => {console.log("DATE", e);commitHeader("expiryDate", e ? e.valueOf() : null)}}
-        renderInput={(params) => <BaseTextField {...params} helperText="Date at which the notification is no longer valid. Empty - no limit"/>}
+        renderInput={(params) => <BaseTextField {...params}
+                                                helperText="Date at which the notification is no longer valid. Empty - no limit"/>}
       />
     </Stack>
   )

@@ -1,16 +1,13 @@
 import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import {useEffect, useState} from "react";
-import {shallowEqual} from "../../utils";
 import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
 import KeyIcon from '@mui/icons-material/Key';
 import BadgeIcon from '@mui/icons-material/Badge';
 import DropZone from "../DropZone";
 import BaseTextField from "../BaseTextField";
+import {eventAuth} from "./defaults";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -80,45 +77,28 @@ function KeyAuth({keyId, setKeyId, teamId, setTeamId, keyFile, setKeyFile}) {
 }
 
 export default function Authentication({auth, onAuthChange}) {
-  const data = auth || { type: 0, passphrase: '', keyId: '', teamId: '' };
-  const [index, setIndex] = useState(data.type);
-  const [keyId, setKeyId] = useState(data.keyId);
-  const [teamId, setTeamId] = useState(data.teamId);
-  const [passphrase, setPassphrase] = useState(data.passphrase);
-  const [certFile, setCertFile] = useState(data.certFile);
-  const [keyFile, setKeyFile] = useState(data.keyFile);
+  const data = auth || eventAuth;
 
-  function constructAuth(){
-    return {
-      type: index,
-      keyId: keyId,
-      teamId: teamId,
-      passphrase: passphrase,
-      certFile: certFile,
-      keyFile: keyFile
-    }
+  function commitAuth(key, value) {
+    onAuthChange({...data, [key]: value});
   }
-
-  useEffect(() => {
-    let auth = constructAuth();
-    if(shallowEqual(auth, data)) return;
-    if(onAuthChange) onAuthChange(auth);
-  }, [index, keyId, teamId, passphrase, certFile, keyFile]);
 
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={index} onChange={(e,val)=>setIndex(val)} aria-label="auth tabs">
+        <Tabs value={data.type} onChange={(e,val)=>commitAuth("type", val)} aria-label="auth tabs">
           <Tab label="Certificate" icon={<BadgeIcon />} iconPosition="start" {...a11yProps(0)} />
           <Tab label="Key" icon={<KeyIcon />} iconPosition="start" {...a11yProps(1)} />
         </Tabs>
       </Box>
-      <TabPanel value={index} index={0}>
-        <CertificateAuth passphrase={passphrase} setPassphrase={setPassphrase}
-                         certFile={certFile} setCertFile={f => {console.log("Selected cert file", f); setCertFile({name: f.name, path: f.path})}}/>
+      <TabPanel value={data.type} index={0}>
+        <CertificateAuth passphrase={data.passphrase} setPassphrase={val => commitAuth("passphrase", val)}
+                         certFile={data.certFile} setCertFile={f => {console.log("Selected cert file", f); commitAuth("certFile", {name: f.name, path: f.path})}}/>
       </TabPanel>
-      <TabPanel value={index} index={1}>
-        <KeyAuth keyId={keyId} setKeyId={setKeyId} teamId={teamId} setTeamId={setTeamId} keyFile={keyFile} setKeyFile={setKeyFile}/>
+      <TabPanel value={data.type} index={1}>
+        <KeyAuth keyId={data.keyId} setKeyId={ k => commitAuth("keyId", k)}
+                 teamId={data.teamId} setTeamId={t => commitAuth("teamId", t)}
+                 keyFile={data.keyFile} setKeyFile={f => commitAuth("keyFile", {name: f.name, path: f.path})}/>
       </TabPanel>
     </Box>
   );
