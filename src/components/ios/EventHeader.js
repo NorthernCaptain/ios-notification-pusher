@@ -19,11 +19,11 @@ const pushTypes = [
 
 const priorities = [
   {
-    value: '10',
+    value: 10,
     label: 'immediately',
   },
   {
-    value: '5',
+    value: 5,
     label: 'normal',
   },
 ]
@@ -87,8 +87,8 @@ export default function EventHeader({header, onHeaderChange}) {
 
       <DateTimePicker
         label="Expiration"
-        value={header.expiryDate ? moment(header.expiryDate) : null}
-        onChange={(e) => {console.log("DATE", e);commitHeader("expiryDate", e ? e.valueOf() : null)}}
+        value={header.expiry ? moment(header.expiry) : null}
+        onChange={(e) => {console.log("DATE", e);commitHeader("expiry", e ? e.valueOf() : null)}}
         renderInput={(params) => <BaseTextField {...params}
                                                 helperText="Date at which the notification is no longer valid. Empty - no limit"/>}
       />

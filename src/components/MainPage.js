@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import Stack from '@mui/material/Stack';
 import {Box} from "@mui/material";
 import AppBar from "./AppBar";
@@ -6,22 +6,18 @@ import IOSEventSettings from "./ios/EventSettings";
 import MainEventHeader from "./MainEventHeader";
 import AndroidEventSettings from "./android/EventSettings";
 import localforage from "localforage";
-import { v4 as uuidv4 } from 'uuid';
 import {useForage} from "../utils";
 import Typography from "@mui/material/Typography";
+import {eventStub} from "./ios/defaults";
+import {useState} from "react";
+import iosSendEvent from "./ios/Send";
 
 localforage.config({name: 'push-notification-app-test1'});
-const defaultId = uuidv4();
 
 export default function MainPage(props) {
-  const [events, setEvents, loading] = useForage('events',
-                              [{id: defaultId, name: 'Notification 1', type: 'ios', date: Date.now()}],
-                                2000);
+  const [events, setEvents, loading] = useForage('events', [eventStub],2000);
   const [selectedEventId, setSelectedEventId, selectedEventLoading] = useForage('selectedEventId', 0, 2000);
-
-  function onSend() {
-    console.log("SEND!")
-  }
+  const [fullEvent, setFullEvent] = useState(null)
 
   if(loading || selectedEventLoading) {
     return (
@@ -34,6 +30,21 @@ export default function MainPage(props) {
   console.log("EVENTS", events, selectedEventId, selectedEventLoading, loading);
   const currentEvent = events[selectedEventId];
 
+  function onSend() {
+    if(fullEvent) {
+      console.log("SEND!")
+      if(currentEvent.type === 'ios') {
+        iosSendEvent(fullEvent).then(res => {
+          console.log("RES", res)
+        }).catch(err => {
+          console.log("ERR", err)
+        })
+      } else {
+        AndroidEventSettings.send(fullEvent);
+      }
+    }
+  }
+
   const setOsType = (type) => {
     const newEvent = {...currentEvent, type};
     setEvents([...events.slice(0, selectedEventId), newEvent, ...events.slice(selectedEventId + 1)]);
@@ -45,7 +56,7 @@ export default function MainPage(props) {
       <Box m={2}>
         <Stack spacing={2}>
           <MainEventHeader osType={currentEvent.type} setOsType={setOsType}/>
-          {currentEvent.type === 'ios' && <IOSEventSettings event={currentEvent}/>}
+          {currentEvent.type === 'ios' && <IOSEventSettings event={currentEvent} onEventChange={setFullEvent}/>}
           {currentEvent.type === 'android' && <AndroidEventSettings event={currentEvent}/>}
         </Stack>
       </Box>

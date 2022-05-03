@@ -11,7 +11,7 @@ import _ from "lodash";
 import {eventAuth, eventBody, eventEnv, eventHeader} from "./defaults";
 
 
-export default function EventSettings({event}) {
+export default function EventSettings({event, onEventChange}) {
   const [header, setHeader] = useState(null);
   const [auth, setAuth] = useState(null);
   const [env, setEnv] = useState(null);
@@ -30,12 +30,14 @@ export default function EventSettings({event}) {
       setAuth(fullEvent.auth);
       setEnv(fullEvent.env);
       setBody(fullEvent.body);
+      onEventChange(fullEvent);
     }
   }, [fullEvent]);
 
   useEffect(() => {
     console.log("Event settings changed", header, auth, env, body);
     const newEvent = {
+      ...event,
       header,
       auth,
       env,
@@ -46,6 +48,7 @@ export default function EventSettings({event}) {
     ) {
       console.log("Event settings changed - saving", header, auth, env, body);
       setFullEvent(newEvent);
+      onEventChange(newEvent);
     }
   }, [header, auth, env, body]);
 
