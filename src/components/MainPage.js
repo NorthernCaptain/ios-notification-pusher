@@ -11,6 +11,9 @@ import Typography from "@mui/material/Typography";
 import {eventStub} from "./ios/defaults";
 import {useState} from "react";
 import iosSendEvent from "./ios/Send";
+import {SplitPane} from "react-collapse-pane";
+import LogsPanel from "./LogsPanel";
+import moment from "moment";
 
 localforage.config({name: 'push-notification-app-test1'});
 
@@ -18,6 +21,7 @@ export default function MainPage(props) {
   const [events, setEvents, loading] = useForage('events', [eventStub],2000);
   const [selectedEventId, setSelectedEventId, selectedEventLoading] = useForage('selectedEventId', 0, 2000);
   const [fullEvent, setFullEvent] = useState(null)
+  const [logs, setLogs] = useState([]);
 
   if(loading || selectedEventLoading) {
     return (
@@ -27,17 +31,27 @@ export default function MainPage(props) {
     )
   }
 
+  function pushLog(log) {
+    log.date = moment()
+    setLogs(logs => [...logs, log]);
+  }
+
   console.log("EVENTS", events, selectedEventId, selectedEventLoading, loading);
   const currentEvent = events[selectedEventId];
 
   function onSend() {
     if(fullEvent) {
       console.log("SEND!")
+      pushLog({severity: "info", message: `Sending event to ${fullEvent.body.devices.length} devices`})
       if(currentEvent.type === 'ios') {
         iosSendEvent(fullEvent).then(res => {
           console.log("RES", res)
+          for(let log of res.logs) {
+            pushLog(log)
+          }
         }).catch(err => {
           console.log("ERR", err)
+          pushLog({severity: "error", message: "General processing error", error: err.message})
         })
       } else {
         AndroidEventSettings.send(fullEvent);
@@ -51,6 +65,7 @@ export default function MainPage(props) {
   };
 
   return (
+    <SplitPane split="vertical" collapse={true}>
     <Box>
       <AppBar onSend={onSend}/>
       <Box m={2}>
@@ -61,5 +76,7 @@ export default function MainPage(props) {
         </Stack>
       </Box>
     </Box>
+      <LogsPanel logs={logs}/>
+    </SplitPane>
   )
 }

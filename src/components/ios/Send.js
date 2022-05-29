@@ -1,6 +1,7 @@
 import apn from 'node-apn';
 import {ValidateError} from "../Exceptions";
 import sha1 from 'js-sha1'
+import {midEllipsis} from "../../utils";
 
 const apnCache = {}
 
@@ -63,5 +64,22 @@ export default async function sendEvent(event) {
 
   notification.rawPayload = jsonCode
 
-  return await apnProvider.send(notification, event.body.devices)
+  let res = await apnProvider.send(notification, event.body.devices)
+  let ret = []
+  for(let entry of res.sent) {
+    ret.push({
+      severity: "success",
+      message: `Successfully sent event to device ${midEllipsis(entry.device)}`
+    })
+  }
+  for(let entry of res.failed) {
+    const err = entry.response?.reason
+    ret.push({
+      severity: "error",
+      message: `Failed to send event to device ${midEllipsis(entry.device)}`,
+      error: err
+    })
+  }
+  res.logs = ret;
+  return res
 }

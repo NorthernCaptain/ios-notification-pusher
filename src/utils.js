@@ -78,3 +78,10 @@ export function useForage(key, defaultValue, debounceTime = 0) {
 
   return [value, setValue, loading];
 }
+
+export function midEllipsis(value, length = 10) {
+  if(value.length <= length) {
+    return value;
+  }
+  return value.substring(0, length/2) + "..." + value.substring(value.length - length/2);
+}
