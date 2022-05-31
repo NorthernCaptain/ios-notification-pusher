@@ -33,3 +33,25 @@
 .json-editor textarea:focus-visible {
   outline: #52afee auto 1px;
 }
+
+.SplitPane .Pane.vertical {
+  overflow-y: auto;
+}
+
+.SplitPane .Pane.vertical::-webkit-scrollbar {
+  width: 10px;
+}
+.SplitPane .Pane.vertical::-webkit-scrollbar-corner {
+  background: rgba(0,0,0,0);
+}
+.SplitPane .Pane.vertical::-webkit-scrollbar-thumb {
+  background-color: #444444;
+  border-radius: 6px;
+  border: 2px solid rgba(0,0,0,0);
+  background-clip: content-box;
+  min-width: 32px;
+  min-height: 32px;
+}
+.SplitPane .Pane.vertical::-webkit-scrollbar-track {
+  background-color: rgba(0,0,0,0);
+}

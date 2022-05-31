@@ -65,17 +65,17 @@ export default function MainPage(props) {
   };
 
   return (
-    <SplitPane split="vertical" collapse={true}>
-    <Box>
-      <AppBar onSend={onSend}/>
-      <Box m={2}>
-        <Stack spacing={2}>
-          <MainEventHeader osType={currentEvent.type} setOsType={setOsType}/>
-          {currentEvent.type === 'ios' && <IOSEventSettings event={currentEvent} onEventChange={setFullEvent}/>}
-          {currentEvent.type === 'android' && <AndroidEventSettings event={currentEvent}/>}
-        </Stack>
+    <SplitPane split="vertical" collapse={false} initialSizes={[3,1]}>
+      <Box>
+        <AppBar onSend={onSend}/>
+        <Box m={2}>
+          <Stack spacing={2} pb={2}>
+            <MainEventHeader osType={currentEvent.type} setOsType={setOsType}/>
+            {currentEvent.type === 'ios' && <IOSEventSettings event={currentEvent} onEventChange={setFullEvent}/>}
+            {currentEvent.type === 'android' && <AndroidEventSettings event={currentEvent}/>}
+          </Stack>
+        </Box>
       </Box>
-    </Box>
       <LogsPanel logs={logs}/>
     </SplitPane>
   )

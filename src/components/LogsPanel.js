@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Alert, Box, Stack, Typography} from "@mui/material";
+import ArticleIcon from '@mui/icons-material/Article';
 
 function LogEntry({log}) {
     return (
@@ -22,7 +23,14 @@ function LogEntry({log}) {
 
 
 export default function LogsPanel({logs}) {
-  if(!logs || logs.length === 0) return null
+  if(!logs || logs.length === 0) return (
+    <Stack m={2} sx={{height: "calc(100vh - 32px)"}} justifyContent="center">
+      <Stack spacing={1} alignItems="center">
+        <ArticleIcon fontSize="large" color="disabled"/>
+        <Typography variant="h6" color="disabled">Logs will be here</Typography>
+      </Stack>
+    </Stack>
+  )
 
   return (
     <Box m={2}>
