@@ -14,6 +14,7 @@ import iosSendEvent from "./ios/Send";
 import {SplitPane} from "react-collapse-pane";
 import LogsPanel from "./LogsPanel";
 import moment from "moment";
+import MyDrawer from "./Drawer";
 
 localforage.config({name: 'push-notification-app-test1'});
 
@@ -22,6 +23,7 @@ export default function MainPage(props) {
   const [selectedEventId, setSelectedEventId, selectedEventLoading] = useForage('selectedEventId', 0, 2000);
   const [fullEvent, setFullEvent] = useState(null)
   const [logs, setLogs] = useState([]);
+  const [drawerOpened, setDrawerOpened] = useState(false);
 
   if(loading || selectedEventLoading) {
     return (
@@ -67,7 +69,8 @@ export default function MainPage(props) {
   return (
     <SplitPane split="vertical" collapse={false} initialSizes={[3,1]}>
       <Box>
-        <AppBar onSend={onSend}/>
+        <AppBar onSend={onSend} onDrawerOpen={() => setDrawerOpened(!drawerOpened)}/>
+        <MyDrawer opened={drawerOpened} onClose={() => setDrawerOpened(false)}/>
         <Box m={2}>
           <Stack spacing={2} pb={2}>
             <MainEventHeader osType={currentEvent.type} setOsType={setOsType}/>

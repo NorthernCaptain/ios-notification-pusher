@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import SendIcon from '@mui/icons-material/Send';
 
-export default function AppTopBar({onSend}) {
+export default function AppTopBar({onSend, onDrawerOpen}) {
   return (
       <AppBar position="sticky">
         <Toolbar>
@@ -17,6 +17,7 @@ export default function AppTopBar({onSend}) {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={onDrawerOpen}
           >
             <MenuIcon />
           </IconButton>
