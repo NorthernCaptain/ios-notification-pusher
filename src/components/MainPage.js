@@ -72,13 +72,20 @@ export default function MainPage(props) {
     setEvents([...events.slice(0, selectedEventId), newEvent, ...events.slice(selectedEventId + 1)]);
   };
 
+  const setName = (name) => {
+    const newEvent = {...currentEvent, name};
+    setEvents([...events.slice(0, selectedEventId), newEvent, ...events.slice(selectedEventId + 1)]);
+  };
+
   const addNewEvent = () => {
-    setEvents([...events, newEvent(events.length)])
+    const nEvent = newEvent(events.length)
+    setEvents([...events, nEvent])
     setSelectedEventId(events.length)
+    pushLog({severity: "success", message: "Create new notification " + nEvent.name})
   }
 
   const deleteEvent = (idx) => {
-    events.splice(idx, 1)
+    const [dEvent] = events.splice(idx, 1)
     const newEvents = [...events]
     if (newEvents.length === 0) {
       newEvents.push(newEvent(0))
@@ -87,7 +94,7 @@ export default function MainPage(props) {
       setSelectedEventId(Math.max(0, selectedEventId - 1))
     }
     setEvents(newEvents)
-    setSnackMessage("Successfully deleted")
+    pushLog({severity: "success", message: "Successfully deleted " + dEvent.name})
   }
 
   return (
@@ -108,6 +115,7 @@ export default function MainPage(props) {
               <MainEventHeader event={currentEvent}
                                osType={currentEvent.type}
                                setOsType={setOsType}
+                               handleNameChange={setName}
               />
               {currentEvent.type === 'ios' && <IOSEventSettings event={currentEvent} onEventChange={setFullEvent}/>}
               {currentEvent.type === 'android' && <AndroidEventSettings event={currentEvent}/>}
