@@ -55,7 +55,7 @@ export default function EventSettings({event, onEventChange}) {
   const key = `${event.id}-${eventLoading}`;
   return (
     <Box key={key}>
-      <AccordionSection title="Header" expanded={true}>
+      <AccordionSection title="Header" expanded={false}>
         <EventHeader header={header} onHeaderChange={hdr => {setHeader(hdr); console.log("Set HEADER", hdr)}}/>
       </AccordionSection>
       <AccordionSection title="Body" expanded={true}>

@@ -5,11 +5,11 @@ import {ToggleButton, ToggleButtonGroup} from "@mui/material";
 import AppleIcon from '@mui/icons-material/Apple';
 import AndroidIcon from '@mui/icons-material/Android';
 
-export default function MainEventHeader({osType, setOsType}) {
+export default function MainEventHeader({osType, setOsType, event}) {
   return (
     <Stack spacing={2} direction="row" alignItems="center" justifyContent="space-between">
       <Typography variant="h6">
-        Notification 1
+        {event.name}
       </Typography>
       <ToggleButtonGroup
         color="primary"
